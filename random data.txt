@@ -1,0 +1,95 @@
+
+-- Insert data into the users table
+INSERT INTO users (user_id, user_name, user_email, user_password, user_type)
+VALUES (1, 'John Doe', 'johndoe@example.com', 'password', 'defendant');
+
+INSERT INTO users (user_id, user_name, user_email, user_password, user_type)
+VALUES (2, 'Jane Doe', 'janedoe@example.com', 'password', 'lawyer');
+
+INSERT INTO users (user_id, user_name, user_email, user_password, user_type)
+VALUES (3, 'Alice Smith', 'alicesmith@example.com', 'password', 'judge');
+
+INSERT INTO users (user_id, user_name, user_email, user_password, user_type)
+VALUES (4, 'Bob Johnson', 'bobjohnson@example.com', 'password', 'defendant');
+
+INSERT INTO users (user_id, user_name, user_email, user_password, user_type)
+VALUES (5, 'Tom Lee', 'tomlee@example.com', 'password', 'lawyer');
+
+INSERT INTO users (user_id, user_name, user_email, user_password, user_type)
+VALUES (6, 'Sara Kim', 'sarakim@example.com', 'password', 'defendant');
+
+INSERT INTO users (user_id, user_name, user_email, user_password, user_type)
+VALUES (7, 'David Lee', 'davidlee@example.com', 'password', 'lawyer');
+
+INSERT INTO users (user_id, user_name, user_email, user_password, user_type)
+VALUES (8, 'Emily Chen', 'emilychen@example.com', 'password', 'head');
+
+INSERT INTO users (user_id, user_name, user_email, user_password, user_type)
+VALUES (9, 'Peter Wang', 'peterwang@example.com', 'password', 'lawyer');
+
+INSERT INTO users (user_id, user_name, user_email, user_password, user_type)
+VALUES (10, 'Cathy Wu', 'cathywu@example.com', 'password', 'defendant');
+
+
+-- Insert data into the cases table
+INSERT INTO cases (case_id, defendant_id, lawyer_id, status, start_date, case_date, end_date, request_date, place, description, decision)
+VALUES (1, 1, 2, 'new', DATE '2022-01-01', DATE '2022-02-01', NULL, NULL, 'New York', 'Description of case 1', NULL);
+
+INSERT INTO cases (case_id, defendant_id, lawyer_id, status, start_date, case_date, end_date, request_date, place, description, decision)
+VALUES (2, 4, 5, 'opened', DATE '2022-02-01', DATE '2022-03-01', NULL, NULL, 'Los Angeles', 'Description of case 2', NULL);
+
+INSERT INTO cases (case_id, defendant_id, lawyer_id, status, start_date, case_date, end_date, request_date, place, description, decision)
+VALUES (3, 6, 7, 'closed', DATE '2022-03-01', DATE '2022-04-01', DATE '2022-05-01', NULL, 'Chicago', 'Description of case 3', 'Decision of case 3');
+
+INSERT INTO cases (case_id, defendant_id, lawyer_id, status, start_date, case_date, end_date, request_date, place, description, decision)
+VALUES (4, 1, 5, 'adjournment', DATE '2022-04-01', DATE '2022-05-01', NULL, DATE '2022-06-01', 'New York', 'Description of case 4', NULL);
+
+INSERT INTO cases (case_id, defendant_id, lawyer_id, status, start_date, case_date, end_date, request_date, place, description, decision)
+VALUES (5, 4, 7, 'new', DATE '2022-05-01', DATE '2022-06-01', NULL, NULL, 'Los Angeles', 'Description of case 5', NULL);
+
+INSERT INTO cases (case_id, defendant_id, lawyer_id, status, start_date, case_date, end_date, request_date, place, description, decision)
+VALUES (6, 6, 2, 'opened', DATE '2022-06-01', DATE '2022-07-01', NULL, NULL, 'Chicago', 'Description of case 6', NULL);
+
+INSERT INTO cases (case_id, defendant_id, lawyer_id, status, start_date, case_date, end_date, request_date, place, description, decision)
+VALUES (7, 10, 5, 'closed', DATE '2022-07-01', DATE '2022-08-01', DATE '2022-09-01', NULL, 'New York', 'Description of case 7', 'Decision of case 7');
+
+INSERT INTO cases (case_id, defendant_id, lawyer_id, status, start_date, case_date, end_date, request_date, place, description, decision)
+VALUES (8, 3, 7, 'adjournment', DATE '2022-08-01', DATE '2022-09-01', NULL, DATE '2022-10-01', 'Los Angeles', 'Description of case 8', NULL);
+
+INSERT INTO cases (case_id, defendant_id, lawyer_id, status, start_date, case_date, end_date, request_date, place, description, decision)
+VALUES (9, 9, 2, 'new', DATE '2022-09-01', DATE '2022-10-01', NULL, NULL, 'Chicago', 'Description of case 9', NULL);
+
+INSERT INTO cases (case_id, defendant_id, lawyer_id, status, start_date, case_date, end_date, request_date, place, description, decision)
+VALUES (10, 8, 1, 'opened', DATE '2022-10-01', DATE '2022-11-01', NULL, NULL, 'New York', 'Description of case 10', NULL);
+
+
+-- Insert data into the case_judges table
+INSERT INTO case_judges (case_id, judge_id)
+VALUES (1, 3);
+
+INSERT INTO case_judges (case_id, judge_id)
+VALUES (2, 5);
+
+INSERT INTO case_judges (case_id, judge_id)
+VALUES (3, 3);
+
+INSERT INTO case_judges (case_id, judge_id)
+VALUES (4, 5);
+
+INSERT INTO case_judges (case_id, judge_id)
+VALUES (5, 7);
+
+INSERT INTO case_judges (case_id, judge_id)
+VALUES (6, 2);
+
+INSERT INTO case_judges (case_id, judge_id)
+VALUES (7, 3);
+
+INSERT INTO case_judges (case_id, judge_id)
+VALUES (8, 7);
+
+INSERT INTO case_judges (case_id, judge_id)
+VALUES (9, 2);
+
+INSERT INTO case_judges (case_id, judge_id)
+VALUES (10, 3);

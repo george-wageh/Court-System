@@ -1,0 +1,103 @@
+CREATE SEQUENCE user_id_seq
+START WITH 11
+INCREMENT BY 1
+MAXVALUE 999999999
+NOCYCLE
+CACHE 20;
+
+CREATE SEQUENCE case_id_seq
+START WITH 11
+INCREMENT BY 1
+MAXVALUE 999999999
+NOCYCLE
+CACHE 20;
+
+CREATE SEQUENCE document_id_seq
+START WITH 11
+INCREMENT BY 1
+MAXVALUE 999999999
+NOCYCLE
+CACHE 20;
+
+create table users (
+  user_id number(10,0) primary key,
+  user_name varchar(255),
+  user_email varchar(255) unique,
+  user_password varchar(255),
+  user_type varchar(255)
+);
+create table cases (
+  case_id NUMBER(10,0) primary key,
+  defendant_id NUMBER(10,0),
+  lawyer_id NUMBER(10,0),
+  status VARCHAR2(255),
+  start_date DATE,
+  case_date DATE,
+  end_date DATE,
+  request_date DATE,
+  place VARCHAR2(255),
+  description VARCHAR2(1024),
+  decision VARCHAR2(1024),
+  CONSTRAINT fk_defendant FOREIGN KEY (defendant_id) REFERENCES users(user_id) ON DELETE CASCADE,
+  CONSTRAINT fk_lawyer FOREIGN KEY (lawyer_id) REFERENCES users(user_id) ON DELETE CASCADE
+);
+
+
+
+create table case_documents (
+  case_id NUMBER(10,0),
+  filename VARCHAR2(255) primary key,
+  filedata blob,
+  CONSTRAINT fk_case_id FOREIGN KEY (case_id) REFERENCES cases(case_id) ON DELETE CASCADE
+);
+
+
+create table case_judges (
+  case_id NUMBER(10,0) ,
+  judge_id NUMBER(10,0) ,
+  CONSTRAINT fk_judge_id FOREIGN KEY (judge_id) REFERENCES  users(user_id) ON DELETE CASCADE
+);
+
+
+
+CREATE OR REPLACE PROCEDURE get_userName (id_ IN NUMBER ,name_ OUT VARCHAR2)
+AS 
+BEGIN 
+  SELECT user_name
+  INTO name_
+  FROM users
+  WHERE user_id = id_;
+END ;
+/
+
+CREATE OR REPLACE PROCEDURE get_judge_cases (JUDGE_ID_ IN NUMBER,STATUS_ IN VARCHAR2 ,cases OUT SYS_REFCURSOR)
+AS
+BEGIN
+  OPEN cases FOR
+    SELECT CASE_ID, DESCRIPTION, REQUEST_DATE, START_DATE, CASE_DATE, PLACE 
+    FROM cases 
+    WHERE STATUS = STATUS_ and CASE_ID IN (SELECT CJ.CASE_ID FROM CASE_JUDGES CJ WHERE CJ.JUDGE_ID = JUDGE_ID_);
+END ;
+/
+
+CREATE OR REPLACE PROCEDURE get_casesNumber(USER_ID_ IN NUMBER, COUNT_ OUT NUMBER)
+AS
+BEGIN
+  SELECT COUNT(*) INTO COUNT_
+  FROM cases
+  WHERE
+    (SELECT USER_TYPE FROM users WHERE USER_ID = USER_ID_) = 'defendant' AND DEFENDANT_ID = USER_ID_
+    OR
+    (SELECT USER_TYPE FROM users WHERE USER_ID = USER_ID_) = 'lawyer' AND LAWYER_ID = USER_ID_;
+END ;
+/
+
+create or replace PROCEDURE get_allCases (status_ IN VARCHAR2 ,cases_ OUT SYS_REFCURSOR)
+AS
+BEGIN
+open cases_ for
+  SELECT c.CASE_ID, u.user_name, c.REQUEST_DATE, c.START_DATE, c.CASE_DATE, c.PLACE
+  FROM cases c
+  JOIN users u ON c.defendant_id = u.user_id
+  WHERE c.STATUS = status_;
+END ;
